@@ -24,9 +24,11 @@ Install the current verified Harness release and the bundle:
 
 ```bash
 npm install -g pnpm@10.28.2 @deepseek-ai/dsh@0.1.0-rc.6
-dsh plugin --profile openclaw add github:BeAChanger/dsh-openclaw-acp#v0.1.2
+dsh plugin --profile openclaw add https://github.com/BeAChanger/dsh-openclaw-acp/releases/download/v0.1.2/dsh-openclaw-acp-0.1.2.tgz
 dsh --profile openclaw --dump-config
 ```
+
+This uses the prebuilt release artifact (SHA-256 `c27d863f65d3ce4518e25cc6ef3758b66d956ea51ab11678e4c67d42803d7240`), so installation does not execute a repository build.
 
 The config dump should contain both `id: openclaw-acp` and `name: dsh-openclaw-acp`.
 

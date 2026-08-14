@@ -24,9 +24,11 @@
 
 ```bash
 npm install -g pnpm@10.28.2 @deepseek-ai/dsh@0.1.0-rc.6
-dsh plugin --profile openclaw add github:BeAChanger/dsh-openclaw-acp#v0.1.2
+dsh plugin --profile openclaw add https://github.com/BeAChanger/dsh-openclaw-acp/releases/download/v0.1.2/dsh-openclaw-acp-0.1.2.tgz
 dsh --profile openclaw --dump-config
 ```
+
+该命令使用预构建的 release 产物（SHA-256：`c27d863f65d3ce4518e25cc6ef3758b66d956ea51ab11678e4c67d42803d7240`），安装时不会执行仓库构建脚本。
 
 配置输出中应同时出现 `id: openclaw-acp` 和 `name: dsh-openclaw-acp`。
 
