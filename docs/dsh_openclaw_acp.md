@@ -16,9 +16,9 @@ The bundle does not read or forward WeChat credentials or sender identifiers; th
 
 Prerequisites:
 
-- Node.js 22 or newer and pnpm 10
+- pnpm 10 and a Node.js release supported by OpenClaw; stable OpenClaw `2026.7.1-2` requires Node.js 22.22.3+, 24.15.0+, or 25.9.0+
 - A [DeepSeek API key](https://platform.deepseek.com/api_keys)
-- OpenClaw with a configured channel; for WeChat, see Tencent's [`openclaw-weixin`](https://github.com/Tencent/openclaw-weixin)
+- OpenClaw `2026.7.1-2` or newer with a configured channel; for WeChat, see Tencent's [`openclaw-weixin`](https://github.com/Tencent/openclaw-weixin)
 
 Install the current verified Harness release and the bundle:
 
@@ -49,7 +49,7 @@ If OpenClaw runs as a service, configure the variable in the service environment
 Install and enable OpenClaw's official ACP runtime:
 
 ```bash
-openclaw plugins install @openclaw/acpx
+openclaw plugins install @openclaw/acpx@2026.7.1
 openclaw config set plugins.entries.acpx.enabled true
 ```
 
