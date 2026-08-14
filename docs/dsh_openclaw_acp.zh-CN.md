@@ -24,11 +24,11 @@
 
 ```bash
 npm install -g pnpm@10.28.2 @deepseek-ai/dsh@0.1.0-rc.6
-dsh plugin --profile openclaw add https://github.com/BeAChanger/dsh-openclaw-acp/releases/download/v0.1.2/dsh-openclaw-acp-0.1.2.tgz
+dsh plugin --profile openclaw add https://github.com/BeAChanger/dsh-openclaw-acp/releases/download/v0.1.3/dsh-openclaw-acp-0.1.3.tgz
 dsh --profile openclaw --dump-config
 ```
 
-该命令使用预构建的 release 产物（SHA-256：`c27d863f65d3ce4518e25cc6ef3758b66d956ea51ab11678e4c67d42803d7240`），安装时不会执行仓库构建脚本。
+该命令使用预构建的 release 产物（SHA-256：`51ab3d78a7505448b5827b84a79081ae9fd11a5553949eafa3a317b5ee4763fd`），安装时不会执行仓库构建脚本。Release 同时提供校验文件。
 
 配置输出中应同时出现 `id: openclaw-acp` 和 `name: dsh-openclaw-acp`。
 
@@ -131,7 +131,7 @@ Harness 会原样传递模型名；`deepseek-v4-flash` 和 `deepseek-v4-pro` 共
 
 ## 验证证据
 
-组合包仓库包含单元、打包和真实 stdio 协议检查。ACP 冒烟测试会把打包产物安装进隔离 profile，启动已发布的 `dsh` CLI，完成 ACP 协商、创建会话，并验证 stdout 只有 JSON-RPC 帧：
+组合包仓库包含单元、打包和真实协议检查。冒烟测试会把打包产物安装进隔离 profile，并两次完成 `initialize` 与 `session/new`：先直接启动已发布的 `dsh` CLI 并验证纯 JSON-RPC stdout，再通过 OpenClaw 官方 ACPX 插件所使用的已发布 `acpx@0.11.2` runtime，以自定义 Agent 注册方式拉起该 profile：
 
 ```bash
 git clone https://github.com/BeAChanger/dsh-openclaw-acp.git

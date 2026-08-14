@@ -24,11 +24,11 @@ Install the current verified Harness release and the bundle:
 
 ```bash
 npm install -g pnpm@10.28.2 @deepseek-ai/dsh@0.1.0-rc.6
-dsh plugin --profile openclaw add https://github.com/BeAChanger/dsh-openclaw-acp/releases/download/v0.1.2/dsh-openclaw-acp-0.1.2.tgz
+dsh plugin --profile openclaw add https://github.com/BeAChanger/dsh-openclaw-acp/releases/download/v0.1.3/dsh-openclaw-acp-0.1.3.tgz
 dsh --profile openclaw --dump-config
 ```
 
-This uses the prebuilt release artifact (SHA-256 `c27d863f65d3ce4518e25cc6ef3758b66d956ea51ab11678e4c67d42803d7240`), so installation does not execute a repository build.
+This uses the prebuilt release artifact (SHA-256 `51ab3d78a7505448b5827b84a79081ae9fd11a5553949eafa3a317b5ee4763fd`), so installation does not execute a repository build. The release also provides a checksum asset.
 
 The config dump should contain both `id: openclaw-acp` and `name: dsh-openclaw-acp`.
 
@@ -131,7 +131,7 @@ The model names are passed through by Harness; both `deepseek-v4-flash` and `dee
 
 ## Verification evidence
 
-The bundle repository includes unit, package, and real stdio protocol checks. The ACP smoke test installs the packed bundle into an isolated profile, launches the published `dsh` CLI, negotiates ACP, creates a session, and verifies that stdout contains JSON-RPC frames only:
+The bundle repository includes unit, package, and real protocol checks. The smoke test installs the packed bundle into an isolated profile, then completes `initialize` and `session/new` twice: first against the published `dsh` CLI directly with JSON-RPC-only stdout, then through a custom-agent registration in the published `acpx@0.11.2` runtime used by OpenClaw's official ACPX plugin:
 
 ```bash
 git clone https://github.com/BeAChanger/dsh-openclaw-acp.git
