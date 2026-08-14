@@ -55,6 +55,14 @@ openclaw plugins install @openclaw/acpx@2026.7.1
 openclaw config set plugins.entries.acpx.enabled true
 ```
 
+For WeChat, install the Tencent channel version verified with this stack. The final command displays a QR code and requires operator confirmation:
+
+```bash
+openclaw plugins install @tencent-weixin/openclaw-weixin@2.4.6
+openclaw config set plugins.entries.openclaw-weixin.enabled true
+openclaw channels login --channel openclaw-weixin
+```
+
 Add the following settings to the OpenClaw config:
 
 ```json5
@@ -77,6 +85,9 @@ Add the following settings to the OpenClaw config:
             }
           }
         }
+      },
+      "openclaw-weixin": {
+        enabled: true
       }
     }
   }
@@ -98,6 +109,12 @@ For a WeChat channel, send the same commands in the chat connected to that Gatew
 
 ```text
 WeChat -> OpenClaw channel -> ACPX -> dsh --profile openclaw -> DeepSeek Harness
+```
+
+For multiple logged-in WeChat accounts, isolate direct-message sessions by account, channel, and sender:
+
+```bash
+openclaw config set session.dmScope per-account-channel-peer
 ```
 
 If the channel advertises conversation binding, add `--bind here` to keep follow-up messages on the same ACP session. If it does not, use the unbound one-shot command; OpenClaw relays the completed result to the parent conversation.
@@ -142,7 +159,7 @@ pnpm run test:acp
 pnpm audit --prod --audit-level high --registry https://registry.npmjs.org
 ```
 
-The protocol smoke does not make a model request, so a real API key is required only for the first live prompt through OpenClaw.
+The protocol smoke does not make a model request, so a real API key is required only for the first live prompt through OpenClaw. In a separate isolated OpenClaw `2026.7.1-2` state, both `@openclaw/acpx@2026.7.1` and `@tencent-weixin/openclaw-weixin@2.4.6` loaded as enabled plugins with all required dependencies installed; the combined custom-agent, channel, and per-account session configuration passed `openclaw config validate`. QR login and live message delivery remain operator-owned checks.
 
 ## References
 

@@ -55,6 +55,14 @@ openclaw plugins install @openclaw/acpx@2026.7.1
 openclaw config set plugins.entries.acpx.enabled true
 ```
 
+如需接入微信，安装本组合已验证的腾讯渠道版本。最后一条命令会显示二维码，必须由运营方确认授权：
+
+```bash
+openclaw plugins install @tencent-weixin/openclaw-weixin@2.4.6
+openclaw config set plugins.entries.openclaw-weixin.enabled true
+openclaw channels login --channel openclaw-weixin
+```
+
 把以下设置加入 OpenClaw 配置：
 
 ```json5
@@ -77,6 +85,9 @@ openclaw config set plugins.entries.acpx.enabled true
             }
           }
         }
+      },
+      "openclaw-weixin": {
+        enabled: true
       }
     }
   }
@@ -98,6 +109,12 @@ openclaw config set plugins.entries.acpx.enabled true
 
 ```text
 微信 -> OpenClaw 渠道 -> ACPX -> dsh --profile openclaw -> DeepSeek Harness
+```
+
+多个微信号同时登录时，建议按账号、渠道和发送者隔离私聊会话：
+
+```bash
+openclaw config set session.dmScope per-account-channel-peer
 ```
 
 如果渠道声明了当前对话绑定能力，可以加 `--bind here`，让后续消息继续进入同一个 ACP 会话。如果渠道没有该能力，就使用不绑定的一次性命令；OpenClaw 会把完成结果回传给父对话。
@@ -142,7 +159,7 @@ pnpm run test:acp
 pnpm audit --prod --audit-level high --registry https://registry.npmjs.org
 ```
 
-协议冒烟不会发起模型请求；只有首次通过 OpenClaw 发送真实提示词时才需要有效 API Key。
+协议冒烟不会发起模型请求；只有首次通过 OpenClaw 发送真实提示词时才需要有效 API Key。另一个隔离的 OpenClaw `2026.7.1-2` 状态目录中，`@openclaw/acpx@2026.7.1` 与 `@tencent-weixin/openclaw-weixin@2.4.6` 均以启用状态成功加载，所有必需依赖完整；包含自定义 Agent、微信渠道和多账号会话隔离的组合配置通过了 `openclaw config validate`。扫码登录与真实消息投递仍需由运营方完成。
 
 ## 参考资料
 
